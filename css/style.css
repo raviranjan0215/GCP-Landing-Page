@@ -177,18 +177,6 @@ p {
   text-align: center;
 }
 
-.section-lede {
-  font-size: 18px;
-  line-height: 1.6;
-  color: var(--color-black);
-  max-width: 728px;
-}
-
-.section-lede--wide {
-  max-width: 1006px;
-  line-height: 1.75;
-}
-
 /* Shared CTA */
 
 .cta {
@@ -1872,6 +1860,10 @@ body.nav-open {
   transition-duration: 0.85s;
 }
 
+.hero__lede.reveal--lead.is-in {
+  transform: none;
+}
+
 .hero__line-mask.reveal {
   opacity: 1;
   transform: none;
@@ -2094,7 +2086,7 @@ body.nav-open {
     bottom: 0;
     border: 0;
     padding: 0;
-    background: rgba(8, 16, 36, 0.45);
+    background: var(--color-navy);
     z-index: 90;
     cursor: pointer;
   }
@@ -2107,6 +2099,7 @@ body.nav-open {
 
   .header__logo {
     min-width: 0;
+    z-index: 110;
   }
 
   .header__toggle {
@@ -2114,30 +2107,32 @@ body.nav-open {
     align-items: center;
     justify-content: center;
     grid-column: 3;
+    z-index: 110;
   }
 
   .header__cta {
     grid-column: 2;
     justify-self: end;
+    z-index: 110;
   }
 
   .header__nav {
-    grid-column: 1 / -1;
-    justify-self: stretch;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    width: 100%;
     display: none;
+    position: fixed;
+    inset: 0;
+    top: calc(var(--header-h) + env(safe-area-inset-top, 0px));
+    width: 100%;
+    max-width: none;
     flex-direction: column;
     align-items: stretch;
-    gap: 4px;
-    padding: 8px 20px 20px;
+    gap: 10px;
+    padding: 20px;
+    margin: 0;
     background: var(--color-navy);
     border-top: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.28);
+    box-shadow: none;
     box-sizing: border-box;
+    overflow-y: auto;
     z-index: 99;
   }
 
@@ -2148,33 +2143,113 @@ body.nav-open {
   .header__list {
     flex-direction: column;
     align-items: stretch;
-    gap: 0;
+    gap: 10px;
     width: 100%;
   }
 
   .header__link {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     width: 100%;
-    padding: 14px 0;
+    padding: 16px 18px;
     font-size: 16px;
+    font-weight: 500;
     line-height: 1.4;
-    border-radius: 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--color-white);
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
     box-sizing: border-box;
+  }
+
+  .header__link::after {
+    content: "";
+    width: 7px;
+    height: 7px;
+    margin-left: 12px;
+    border-right: 2px solid currentColor;
+    border-top: 2px solid currentColor;
+    transform: rotate(45deg);
+    opacity: 0.55;
+    flex-shrink: 0;
+  }
+
+  .header__link:hover {
+    color: var(--color-white);
+    background: rgba(255, 255, 255, 0.1);
   }
 
   .header__link--active,
   .header__link--active:hover {
-    background: transparent;
-    color: var(--color-white);
+    background: #d9eefd;
+    color: var(--color-navy-text);
     font-weight: 600;
-    padding: 14px 0;
+    padding: 16px 18px;
+    border-color: transparent;
+  }
+
+  .header__link--active::after {
+    border-color: var(--color-primary);
+    opacity: 1;
   }
 
   .section-title,
   .why__title,
-  .resources__title {
+  .resources__title,
+  .lead-form__title {
     font-size: 28px;
+  }
+
+  .lead-form {
+    height: auto;
+    padding: 24px 20px 20px;
+    gap: 16px;
+  }
+
+  .lead-form__title {
+    width: auto;
+    height: auto;
+    line-height: 1.25;
+    white-space: nowrap;
+  }
+
+  .lead-form form,
+  .lead-form .hs-form {
+    gap: 12px !important;
+  }
+
+  .lead-form .hs-submit,
+  .lead-form .hs_submit,
+  .lead-form .actions {
+    margin: 0 !important;
+  }
+
+  .hero__copy {
+    align-items: center;
+    gap: 12px;
+  }
+
+  .hero__title {
+    font-size: 36px;
+    text-align: center;
+  }
+
+  .hero__lede {
+    text-align: left;
+  }
+
+  .case-card {
+    min-height: 0;
+  }
+
+  .case-card p {
+    padding: 28px 20px 32px;
+  }
+
+  .case-card__banner img:first-child {
+    max-width: 110px;
+    max-height: 20px;
   }
 
   .challenges {
@@ -2185,6 +2260,52 @@ body.nav-open {
     grid-template-columns: 1fr;
     gap: 12px;
     margin-top: 20px;
+  }
+
+  .stat-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .stat-card {
+    height: auto;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px 20px 20px 24px;
+  }
+
+  .stat-card__value {
+    font-size: 32px;
+    line-height: 1.1;
+    letter-spacing: -1.5px;
+  }
+
+  .stat-card__label {
+    margin-top: 4px;
+    font-size: 15px;
+    line-height: 1.35;
+    max-width: calc(100% - 76px);
+    white-space: nowrap;
+  }
+
+  .stat-card__label br {
+    display: none;
+  }
+
+  .stat-card--mint .stat-card__art,
+  .stat-card--cream .stat-card__art,
+  .stat-card--lavender .stat-card__art,
+  .stat-card--blush .stat-card__art {
+    left: auto;
+    top: auto;
+    right: -4px;
+    bottom: -4px;
+    width: 61px;
+    height: 54px;
+    transform: none;
+    z-index: 0;
   }
 
   .challenge-card {
@@ -2331,12 +2452,7 @@ body.nav-open {
     padding: 48px var(--pad) 56px;
   }
 
-  .hero__title {
-    font-size: 32px;
-  }
-
-  .hero__lede,
-  .section-lede {
+  .hero__lede {
     font-size: 16px;
   }
 
@@ -2354,22 +2470,8 @@ body.nav-open {
   }
 
   .stat-card {
-    min-height: 0;
-    height: auto;
-  }
-
-  .stat-card {
-    padding: 32px 24px 80px;
-  }
-
-  .stat-card--mint .stat-card__art,
-  .stat-card--cream .stat-card__art,
-  .stat-card--lavender .stat-card__art,
-  .stat-card--blush .stat-card__art {
-    left: auto;
-    top: auto;
-    right: 0;
-    bottom: -28px;
+    min-height: 100px;
+    padding: 20px 18px;
   }
 
   .pill-tabs {
@@ -2398,13 +2500,14 @@ body.nav-open {
   }
 
   .case-card__banner img:first-child {
-    max-width: 180px;
+    max-width: 110px;
+    max-height: 20px;
   }
 }
 
 @media (max-width: 480px) {
   .hero__title {
-    font-size: 28px;
+    font-size: 32px;
   }
 
   .hero__partner {
@@ -2413,8 +2516,8 @@ body.nav-open {
   }
 
   .lead-form {
-    height: 437px;
-    padding: 50px 24px;
+    height: auto;
+    padding: 20px 16px 16px;
   }
 
   .challenge-card {
