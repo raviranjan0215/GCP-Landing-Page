@@ -1554,13 +1554,25 @@ body.nav-open {
 
 .resources__abstract {
   position: absolute;
-  right: -40px;
-  bottom: -80px;
+  right: -80px;
+  bottom: 2px;
   width: 316px;
-  height: auto;
+  height: 199px;
+  opacity: 0.6;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.resources__abstract img {
+  position: absolute;
+  left: 24px;
+  top: -420px;
+  width: 400px;
+  height: 389px;
+  object-fit: contain;
   opacity: 0.4;
   mix-blend-mode: luminosity;
-  pointer-events: none;
+  transform: rotate(23.4deg);
 }
 
 .resources .wrap {
