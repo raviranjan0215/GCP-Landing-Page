@@ -55,6 +55,9 @@
     });
   }
 
+  var holdId = "";
+  var holdTimer = 0;
+
   function scrollToTarget(hash) {
     var target = document.querySelector(hash);
     if (!target) return;
@@ -68,17 +71,39 @@
       if (!href || href.charAt(0) !== "#") return;
       e.preventDefault();
       closeMenu();
-      setActive(href.slice(1) === "hero" ? "hero" : href.slice(1));
+      holdId = href.slice(1);
+      setActive(holdId);
+      window.clearTimeout(holdTimer);
+      holdTimer = window.setTimeout(function () {
+        holdId = "";
+        updateActiveFromScroll();
+      }, 1200);
       scrollToTarget(href);
       if (history.replaceState) history.replaceState(null, "", href);
     });
   });
 
+  function visibleSlice(el, topClamp) {
+    var r = el.getBoundingClientRect();
+    return Math.max(0, Math.min(r.bottom, window.innerHeight) - Math.max(r.top, topClamp));
+  }
+
   function updateActiveFromScroll() {
+    if (holdId) {
+      setActive(holdId);
+      return;
+    }
     if (!sections.length) return;
-    var probe = headerOffset() + 48;
+    var headerH = headerOffset();
+    var resources = document.getElementById("resources");
+    if (resources && visibleSlice(resources, headerH) > 80) {
+      setActive("resources");
+      return;
+    }
+    var probe = headerH + 48;
     var current = sections[0].id;
     sections.forEach(function (section) {
+      if (section.id === "resources") return;
       if (section.getBoundingClientRect().top <= probe) current = section.id;
     });
     setActive(current);
