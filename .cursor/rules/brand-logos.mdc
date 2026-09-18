@@ -1,0 +1,13 @@
+---
+description: CloudKeeper and cloud-partner logos must be SVG, with reverse on dark backgrounds
+alwaysApply: true
+---
+
+# Brand logos
+
+- CloudKeeper wordmarks are **SVG only** — never PNG/WebP for the brand logo.
+- **Dark backgrounds** (navy header, dark hero, dark nav): `assets/logos/cloudkeeper-reverse.svg` — **fully white** CloudKeeper wordmark (cloud + letters).
+- **Light backgrounds** (white footer, light cards): `assets/logos/cloudkeeper-footer.svg` (cyan/pink Cloud, navy Keeper).
+- Never put the light-background logo on a dark fill — “Keeper” disappears.
+- AWS, GCP, and other partner marks follow the same rule: SVG, and a reverse/light variant on dark backgrounds.
+- Do not redraw the logo; reuse these files.
