@@ -676,7 +676,8 @@ body.nav-open {
 .lead-form .hs-form {
   display: flex !important;
   flex-direction: column;
-  gap: 28px;
+  justify-content: flex-start;
+  gap: 12px;
 }
 
 .lead-form fieldset {
@@ -770,9 +771,13 @@ body.nav-open {
 .lead-form .hs-submit,
 .lead-form .hs_submit,
 .lead-form .actions {
-  margin: 17px 0 0 !important;
+  margin: 0 !important;
   padding: 0 !important;
   width: 100%;
+}
+
+.lead-form .hs_submit .actions {
+  margin: 0 !important;
 }
 
 .lead-form .hs-button,
@@ -1988,6 +1993,13 @@ body.nav-open {
 }
 
 /* Breakpoints */
+
+@media (min-width: 900px) {
+  .lead-form form,
+  .lead-form .hs-form {
+    gap: 30px !important;
+  }
+}
 
 @media (max-width: 1366px) {
   :root {
