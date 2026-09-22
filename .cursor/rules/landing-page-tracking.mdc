@@ -24,6 +24,7 @@ No thank-you page. Conversions fire in HubSpot `onFormSubmitted` when the lead c
 - **Bing UET** `ti: 343210501` — in `<head>` (page-view only)
 - **Taboola** `1871107` page_view — in `<head>` (page-view only)
 - **LinkedIn** partner `4688276` + noscript gif — before `</body>`
+- **Reddit** `a2_gtvt8su7g522` — in `<head>`: `init` + `PageVisit`. Never put placeholder emails in `init`. On form success: `rdt('track', 'Lead')`, add `{ email }` only if HubSpot actually submitted one.
 
 ## Form success (not a URL)
 
@@ -31,6 +32,8 @@ No thank-you page. Conversions fire in HubSpot `onFormSubmitted` when the lead c
 dataLayer.push({ event: "lead_form_success", form_id, form_name });
 gtag("event", "generate_lead", { form_id, form_name });
 oaiq("measure", "lead_created", { type: "customer_action" });
+rdt("track", "Lead"); // + email if present
 ```
 
-Reddit, Google Ads `send_to`, and LinkedIn `lintrk` conversion IDs: add only when the user pastes them; wire into `onFormSubmitted`.
+Google Ads `send_to` and LinkedIn `lintrk` conversion IDs: add only when the user pastes them; wire into `onFormSubmitted`.
+Do not send empty Reddit match keys (`<EMAIL-HERE>`, phone, idfa, aaid). The pixel stub queues events if the script is still loading.

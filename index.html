@@ -48,7 +48,7 @@
     </script>
     <!-- End Google Tag Manager -->
     <!-- Bing UET -->
-    <script>(function(w,d,t,r,u){var f,n,i;w[u]=w[u]||[],f=function(){var o={ti:"343210501", enableAutoSpaTracking: true};o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad")},n=d.createElement(t),n.src=r,n.async=1,n.onload=n.onreadystatechange=function(){var s=this.readyState;s&&s!=="loaded"&&s!=="complete"||(f(),n.onload=n.onreadystatechange=null)},i=d.getElementsByTagName(t)[0],i.parentNode.insertBefore(n,i)})(window,document,"script","//bat.bing.com/bat.js","uetq");</script>
+    <script>(function(w,d,t,r,u){var f,n,i;w[u]=w[u]||[],f=function(){var o={ti:"343210501", enableAutoSpaTracking: true};o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad")},n=d.createElement(t),n.src=r,n.async=1,n.onload=n.onreadystatechange=function(){var s=this.readyState;s&&s!=="loaded"&&s!=="complete"||(f(),n.onload=n.onreadystatechange=null)},i=d.getElementsByTagName(t)[0],i.parentNode.insertBefore(n,i)})(window,document,"script","https://bat.bing.com/bat.js","uetq");</script>
     <!-- Taboola Pixel Code -->
     <script type='text/javascript'>
       window._tfa = window._tfa || [];
@@ -59,10 +59,16 @@
              }
       }(document.createElement('script'),
       document.getElementsByTagName('script')[0],
-      '//cdn.taboola.com/libtrc/unip/1871107/tfa.js',
+      'https://cdn.taboola.com/libtrc/unip/1871107/tfa.js',
       'tb_tfa_script');
     </script>
     <!-- End of Taboola Pixel Code -->
+    <!-- Reddit Pixel -->
+    <script>
+      !function(w,d){if(!w.rdt){var p=w.rdt=function(){p.sendEvent?p.sendEvent.apply(p,arguments):p.callQueue.push(arguments)};p.callQueue=[];var t=d.createElement("script");t.src="https://www.redditstatic.com/ads/pixel.js?pixel_id=a2_gtvt8su7g522",t.async=!0;var s=d.getElementsByTagName("script")[0];s.parentNode.insertBefore(t,s)}}(window,document);rdt('init','a2_gtvt8su7g522');rdt('track', 'PageVisit');
+    </script>
+    <!-- DO NOT MODIFY UNLESS TO REPLACE A USER IDENTIFIER -->
+    <!-- End Reddit Pixel -->
     <title>GCP Campaign Landing Page | CloudKeeper</title>
     <meta
       name="description"
@@ -932,7 +938,7 @@
           empty();
           setTimeout(empty, 200);
         },
-        onFormSubmitted: function () {
+        onFormSubmitted: function ($form, data) {
           var card = document.querySelector("[data-form-card]");
           if (card) card.classList.add("is-success");
           window.dataLayer = window.dataLayer || [];
@@ -950,12 +956,20 @@
           if (typeof oaiq === "function") {
             oaiq("measure", "lead_created", { type: "customer_action" });
           }
+          if (typeof rdt === "function") {
+            var email = "";
+            try {
+              email = (data && data.submissionValues && data.submissionValues.email) || "";
+            } catch (e) {}
+            if (email) rdt("track", "Lead", { email: email });
+            else rdt("track", "Lead");
+          }
         },
       });
     </script>
 
     <!-- Start of HubSpot Embed Code -->
-    <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/47057450.js"></script>
+    <script type="text/javascript" id="hs-script-loader" async defer src="https://js.hs-scripts.com/47057450.js"></script>
     <!-- End of HubSpot Embed Code -->
 
     <script type="text/javascript">
