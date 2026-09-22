@@ -252,6 +252,12 @@ p {
   height: 46px;
 }
 
+.cta--lens {
+  gap: 8px;
+  padding: 14px 12px;
+  font-size: 15px;
+}
+
 /* Header */
 
 .header {

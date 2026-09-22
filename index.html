@@ -10,6 +10,26 @@
       }
       gtag("js", new Date());
       gtag("config", "G-NHFQ8VF7N6");
+      gtag("config", "AW-11144001473");
+    </script>
+    <script>
+      (function (w, d, s, u) {
+        if (w.oaiq) return;
+        var q = function () {
+          q.q.push(arguments);
+        };
+        q.q = [];
+        w.oaiq = q;
+        var js = d.createElement(s);
+        js.async = true;
+        js.src = u;
+        var f = d.getElementsByTagName(s)[0];
+        f.parentNode.insertBefore(js, f);
+      })(window, document, "script", "https://bzrcdn.openai.com/sdk/oaiq.min.js");
+
+      oaiq("init", {
+        pixelId: "SKpPn7r8CEYd72xL9T9XGY",
+      });
     </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
@@ -27,6 +47,22 @@
       })(window, document, "script", "dataLayer", "GTM-KTGV77T");
     </script>
     <!-- End Google Tag Manager -->
+    <!-- Bing UET -->
+    <script>(function(w,d,t,r,u){var f,n,i;w[u]=w[u]||[],f=function(){var o={ti:"343210501", enableAutoSpaTracking: true};o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad")},n=d.createElement(t),n.src=r,n.async=1,n.onload=n.onreadystatechange=function(){var s=this.readyState;s&&s!=="loaded"&&s!=="complete"||(f(),n.onload=n.onreadystatechange=null)},i=d.getElementsByTagName(t)[0],i.parentNode.insertBefore(n,i)})(window,document,"script","//bat.bing.com/bat.js","uetq");</script>
+    <!-- Taboola Pixel Code -->
+    <script type='text/javascript'>
+      window._tfa = window._tfa || [];
+      window._tfa.push({notify: 'event', name: 'page_view', id: 1871107});
+      !function (t, f, a, x) {
+             if (!document.getElementById(x)) {
+                t.async = 1;t.src = a;t.id=x;f.parentNode.insertBefore(t, f);
+             }
+      }(document.createElement('script'),
+      document.getElementsByTagName('script')[0],
+      '//cdn.taboola.com/libtrc/unip/1871107/tfa.js',
+      'tb_tfa_script');
+    </script>
+    <!-- End of Taboola Pixel Code -->
     <title>GCP Campaign Landing Page | CloudKeeper</title>
     <meta
       name="description"
@@ -46,7 +82,7 @@
       href="assets/fonts/Metropolis-Regular.woff2"
       crossorigin
     />
-    <link rel="stylesheet" href="css/style.css?v=lens-q3" />
+    <link rel="stylesheet" href="css/style.css?v=lens-cta" />
     <link rel="preconnect" href="https://js.hsforms.net" crossorigin />
     <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
     <link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32" />
@@ -313,7 +349,7 @@
                   </p>
                 </div>
                 <a class="cta cta--aside" href="#hero" data-scroll>
-                  Book a Tuner demo
+                  Book a Tuner Demo
                   <span class="cta__icon">
                     <img
                       class="cta__icon-img"
@@ -405,8 +441,8 @@
                     cost visibility needs.
                   </p>
                 </div>
-                <a class="cta cta--aside" href="#hero" data-scroll>
-                  Request a walkthrough
+                <a class="cta cta--aside cta--lens" href="#hero" data-scroll>
+                  Get the 20:20 Cloud Vision
                   <span class="cta__icon">
                     <img
                       class="cta__icon-img"
@@ -899,6 +935,21 @@
         onFormSubmitted: function () {
           var card = document.querySelector("[data-form-card]");
           if (card) card.classList.add("is-success");
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push({
+            event: "lead_form_success",
+            form_id: "63ac8453-7a9f-4629-9d89-6f283496690b",
+            form_name: "GCP Campaign",
+          });
+          if (typeof gtag === "function") {
+            gtag("event", "generate_lead", {
+              form_id: "63ac8453-7a9f-4629-9d89-6f283496690b",
+              form_name: "GCP Campaign",
+            });
+          }
+          if (typeof oaiq === "function") {
+            oaiq("measure", "lead_created", { type: "customer_action" });
+          }
         },
       });
     </script>
@@ -918,5 +969,23 @@
     </script>
 
     <script>window.faitracker=window.faitracker||function(){this.q=[];var t=new CustomEvent("FAITRACKER_QUEUED_EVENT");return this.init=function(t,e,a){this.TOKEN=t,this.INIT_PARAMS=e,this.INIT_CALLBACK=a,window.dispatchEvent(new CustomEvent("FAITRACKER_INIT_EVENT"))},this.call=function(){var e={k:"",a:[]};if(arguments&&arguments.length>=1){for(var a=1;a<arguments.length;a++)e.a.push(arguments[a]);e.k=arguments[0]}this.q.push(e),window.dispatchEvent(t)},this.message=function(){window.addEventListener("message",function(t){"faitracker"===t.data.origin&&this.call("message",t.data.type,t.data.message)})},this.message(),this.init("lc03thn6ryky6rbl8ejxdgdm1sd7cuiv",{host:"https://api.factors.ai"}),this}(),function(){var t=document.createElement("script");t.type="text/javascript",t.src="https://app.factors.ai/assets/factors.js",t.async=!0,(d=document.getElementsByTagName("script")[0]).parentNode.insertBefore(t,d)}();</script>
+    <script type="text/javascript">
+      _linkedin_partner_id = "4688276";
+      window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
+      window._linkedin_data_partner_ids.push(_linkedin_partner_id);
+    </script>
+    <script type="text/javascript">
+      (function(l) {
+      if (!l){window.lintrk = function(a,b){window.lintrk.q.push([a,b])};
+      window.lintrk.q=[]}
+      var s = document.getElementsByTagName("script")[0];
+      var b = document.createElement("script");
+      b.type = "text/javascript";b.async = true;
+      b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
+      s.parentNode.insertBefore(b, s);})(window.lintrk);
+    </script>
+    <noscript>
+      <img height="1" width="1" style="display:none;" alt="" src="https://px.ads.linkedin.com/collect/?pid=4688276&fmt=gif" />
+    </noscript>
   </body>
 </html>

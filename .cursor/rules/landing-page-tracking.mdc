@@ -1,0 +1,36 @@
+---
+description: Deploy CloudKeeper LP tracking in one pass; in-form success, no thank-you page
+alwaysApply: true
+---
+
+# Landing-page tracking
+
+When the user says add tracking (or starts a new CloudKeeper LP), install the **full set in one pass** — the original five plus the ads pixels. Do not skip the ones already on FinOps/GCP.
+
+No thank-you page. Conversions fire in HubSpot `onFormSubmitted` when the lead card gets `is-success`. Do **not** add extra HubSpot.ai snippets beyond the HubSpot form + tracker below. Paste vendor snippets as given; merge duplicate `gtag` loaders.
+
+## Always include — original five
+
+1. **Google Analytics** `G-NHFQ8VF7N6` — immediately after `<head>`, one `gtag.js` loader
+2. **GTM** `GTM-KTGV77T` — in `<head>` after charset/viewport; noscript iframe right after `<body>`
+3. **HubSpot** portal `47057450` — form embed (`js.hsforms.net`, page-specific `formId`) + `js.hs-scripts.com/47057450.js` before `</body>`
+4. **Mouseflow** `0fde1d83-d67e-4b8c-9836-32c1628dc9df` — before `</body>`
+5. **Factors.ai** token `lc03thn6ryky6rbl8ejxdgdm1sd7cuiv` host `https://api.factors.ai` — before `</body>`
+
+## Always include — ads pixels
+
+- **Google Ads** `AW-11144001473` — same `gtag` block as GA (`gtag("config", "AW-11144001473")`)
+- **ChatGPT India** `oaiq` pixel `SKpPn7r8CEYd72xL9T9XGY` — near top of `<head>`
+- **Bing UET** `ti: 343210501` — in `<head>` (page-view only)
+- **Taboola** `1871107` page_view — in `<head>` (page-view only)
+- **LinkedIn** partner `4688276` + noscript gif — before `</body>`
+
+## Form success (not a URL)
+
+```js
+dataLayer.push({ event: "lead_form_success", form_id, form_name });
+gtag("event", "generate_lead", { form_id, form_name });
+oaiq("measure", "lead_created", { type: "customer_action" });
+```
+
+Reddit, Google Ads `send_to`, and LinkedIn `lintrk` conversion IDs: add only when the user pastes them; wire into `onFormSubmitted`.
