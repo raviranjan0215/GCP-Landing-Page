@@ -139,19 +139,6 @@
     Array.prototype.forEach.call(root.querySelectorAll(".reveal"), revealEl);
   }
 
-  function replayPanel(panel) {
-    if (!panel || reduceMotion) {
-      if (panel) panel.classList.add("is-in");
-      return;
-    }
-    panel.classList.remove("is-in");
-    window.requestAnimationFrame(function () {
-      window.requestAnimationFrame(function () {
-        panel.classList.add("is-in");
-      });
-    });
-  }
-
   document.querySelectorAll("[data-wow]").forEach(function (section) {
     section.addEventListener("mouseenter", function () {
       playWow(section);
@@ -167,6 +154,9 @@
         entries.forEach(function (entry) {
           if (!entry.isIntersecting) return;
           revealEl(entry.target);
+          if (entry.target.classList.contains("perk-card")) {
+            document.querySelectorAll(".perk-card.reveal").forEach(revealEl);
+          }
           revealObserver.unobserve(entry.target);
         });
       },
@@ -210,6 +200,77 @@
     });
   }
 
+  var perkGrid = document.querySelector(".perk-grid");
+  var perkDotsWrap = document.querySelector(".perk-dots");
+  var perkDots = perkDotsWrap ? perkDotsWrap.querySelectorAll(".perk-dots__dot") : [];
+  var perkCards = perkGrid ? Array.from(perkGrid.querySelectorAll(".perk-card")) : [];
+  var perkMq = window.matchMedia("(max-width: 899px)");
+
+  function perkGap() {
+    if (!perkGrid) return 0;
+    var style = window.getComputedStyle(perkGrid);
+    return parseFloat(style.columnGap || style.gap) || 0;
+  }
+
+  function perkIndex() {
+    if (!perkGrid || !perkCards.length) return 0;
+    var slide = perkCards[0].offsetWidth + perkGap();
+    if (slide <= 0) return 0;
+    return Math.max(0, Math.min(perkCards.length - 1, Math.round(perkGrid.scrollLeft / slide)));
+  }
+
+  function setPerkDot(index) {
+    perkDots.forEach(function (dot, i) {
+      var on = i === index;
+      dot.classList.toggle("is-active", on);
+      if (on) dot.setAttribute("aria-current", "true");
+      else dot.removeAttribute("aria-current");
+    });
+  }
+
+  function scrollPerkTo(index) {
+    if (!perkGrid || !perkCards[index]) return;
+    var left = perkCards[index].offsetLeft - perkCards[0].offsetLeft;
+    perkGrid.scrollTo({ left: left, behavior: reduceMotion ? "auto" : "smooth" });
+    setPerkDot(index);
+  }
+
+  if (perkGrid && perkCards.length && perkDotsWrap && perkDots.length) {
+    perkGrid.addEventListener(
+      "scroll",
+      function () {
+        if (!perkMq.matches) return;
+        setPerkDot(perkIndex());
+      },
+      { passive: true }
+    );
+
+    perkDotsWrap.addEventListener(
+      "click",
+      function (e) {
+        var dot = e.target.closest(".perk-dots__dot");
+        if (!dot || !perkMq.matches) return;
+        var index = Array.prototype.indexOf.call(perkDotsWrap.children, dot);
+        if (index < 0) return;
+        e.preventDefault();
+        scrollPerkTo(index);
+      },
+      true
+    );
+
+    function resetPerkCarousel() {
+      if (perkMq.matches) {
+        setPerkDot(perkIndex());
+        return;
+      }
+      perkGrid.scrollLeft = 0;
+      setPerkDot(0);
+    }
+
+    if (perkMq.addEventListener) perkMq.addEventListener("change", resetPerkCarousel);
+    else perkMq.addListener(resetPerkCarousel);
+  }
+
   var why = document.getElementById("why");
   if (why) {
     var statNums = why.querySelectorAll("[data-count]");
@@ -241,20 +302,4 @@
     }
   }
 
-  document.querySelectorAll(".pill-tabs__btn").forEach(function (btn) {
-    btn.addEventListener("click", function () {
-      var tab = btn.getAttribute("data-tab");
-      document.querySelectorAll(".pill-tabs__btn").forEach(function (other) {
-        var on = other === btn;
-        other.classList.toggle("is-active", on);
-        other.setAttribute("aria-selected", on ? "true" : "false");
-      });
-      document.querySelectorAll(".offer-panel").forEach(function (panel) {
-        var match = panel.getAttribute("data-panel") === tab;
-        panel.classList.toggle("is-active", match);
-        panel.hidden = !match;
-        if (match) replayPanel(panel);
-      });
-    });
-  });
 })();
